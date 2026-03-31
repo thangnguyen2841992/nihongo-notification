@@ -20,7 +20,7 @@ public class KafkaService {
 
     @KafkaListener(id = "sendEmailActiveGroup", topics = "send-email-active-response")
     public void receiveEmailActive(MessageSendActiveUser messageSendActiveUser) {
-        logger.info("Received email: {}", messageSendActiveUser.getToEmail());
+//        logger.info("Received email: {}", messageSendActiveUser.getToEmail());
         this.notificationService.sendEmailActive(messageSendActiveUser);
     }
 }

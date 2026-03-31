@@ -10,11 +10,12 @@ import lombok.NoArgsConstructor;
 public class MessageSendActiveUser {
     private String formEmail;
 
-    private String toEmail;
+    private String toUserEmail;
 
     private String activeCode;
 
-    private String toName;
+    private String toUserName;
+    private String toUserFullName;
 
     private int toUserId;
 }

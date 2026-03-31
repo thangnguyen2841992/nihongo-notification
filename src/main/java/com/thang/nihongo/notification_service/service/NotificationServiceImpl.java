@@ -35,12 +35,12 @@ public class NotificationServiceImpl implements INotificationService {
             String url = frontendUrl + "/active/" + msg.getToUserId() + "/" + msg.getActiveCode();
 
             Context context = new Context();
-            context.setVariable("name", msg.getToName());
+            context.setVariable("name", msg.getToUserFullName());
             context.setVariable("url", url);
 
             String html = templateEngine.process("active-account", context);
 
-            sendMail(msg.getToEmail(), "Kích hoạt tài khoản", html);
+            sendMail(msg.getToUserEmail(), "Kích hoạt tài khoản", html);
 
         } catch (Exception e) {
             log.error("Send mail failed", e);
