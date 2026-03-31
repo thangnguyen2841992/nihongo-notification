@@ -1,0 +1,26 @@
+
+spring:
+  application:
+    name: notification-service
+  mail:
+    default-encoding: UTF-8
+    host: smtp.gmail.com
+    username: nguyenthang29tbdl@gmail.com
+    password: mwfeispvymtsleew
+    port: 587
+    protocol: smtp
+    test-connection: false
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
+      auto-offset-reset: earliest
+server:
+  port: 8080
