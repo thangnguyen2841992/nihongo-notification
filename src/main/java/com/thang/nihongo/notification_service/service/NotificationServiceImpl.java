@@ -1,6 +1,6 @@
 package com.thang.nihongo.notification_service.service;
 
-import com.thang.nihongo.notification_service.model.MessageSendActiveUser;
+import com.thang.nihongo.notification_service.model.MessageResponseUser;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -30,32 +30,32 @@ public class NotificationServiceImpl implements INotificationService {
     }
 
     @Async
-    public void sendEmailActive(MessageSendActiveUser msg) {
-        try {
-            String url = frontendUrl + "/active/" + msg.getToUserId() + "/" + msg.getActiveCode();
+    public void sendEmailActive(MessageResponseUser msg) throws MessagingException {
+        String subject = "Kích hoạt tài khoản của bạn tại Japanese App";
 
-            Context context = new Context();
-            context.setVariable("name", msg.getToUserFullName());
-            context.setVariable("url", url);
+        String url = frontendUrl + "/active/" + msg.getToUserId();
 
-            String html = templateEngine.process("active-account", context);
+        Context context = new Context();
+        context.setVariable("name", msg.getToUserFullName());
+        context.setVariable("url", url);
 
-            sendMail(msg.getToUserEmail(), "Kích hoạt tài khoản", html);
+        String html = templateEngine.process("active-account", context);
 
-        } catch (Exception e) {
-            log.error("Send mail failed", e);
-        }
+        sendMail(msg.getToUserEmail(), subject, html);
     }
 
-    private void sendMail(String to, String subject, String html) throws MessagingException {
+    private void sendMail(String toEmail, String subject, String text) throws MessagingException {
         MimeMessage message = javaMailSender.createMimeMessage();
-
-        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-        helper.setFrom(fromEmail);
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(html, true);
-
-        javaMailSender.send(message);
+        try {
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
+            helper.setFrom(fromEmail);
+            helper.setTo(toEmail);
+            helper.setText(text, true);
+            helper.setSubject(subject);
+        } catch (MessagingException e) {
+            log.error("Send mail failed to {}", toEmail, e);
+            throw e;
+        }
+        this.javaMailSender.send(message);
     }
 }
