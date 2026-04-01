@@ -33,7 +33,9 @@ public class NotificationServiceImpl implements INotificationService {
     public void sendEmailActive(MessageResponseUser msg) throws MessagingException {
         String subject = "Kích hoạt tài khoản của bạn tại Japanese App";
 
-        String url = frontendUrl + "/active/" + msg.getToUserId();
+        String url = frontendUrl
+                + "/active?userId=" + msg.getToUserId()
+                + "&activeCode=" + msg.getActiveCode();
 
         Context context = new Context();
         context.setVariable("name", msg.getToUserFullName());

@@ -7,7 +7,6 @@ import lombok.*;
 @Getter
 @Setter
 public class MessageResponseUser {
-//    private String formEmail;
 
     private String toUserEmail;
 
@@ -15,4 +14,5 @@ public class MessageResponseUser {
     private String toUserFullName;
 
     private long toUserId;
+    private String activeCode;
 }
