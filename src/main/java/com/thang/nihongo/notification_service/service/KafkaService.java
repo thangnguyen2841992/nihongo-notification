@@ -20,7 +20,6 @@ public class KafkaService {
 
     @KafkaListener(id = "sendEmailActiveGroup", topics = "send-email-active-response")
     public void receiveEmailActive(MessageResponseUser messageResponseUser) throws MessagingException {
-//        logger.info("Received email: {}", messageSendActiveUser.getToEmail());
         this.notificationService.sendEmailActive(messageResponseUser);
     }
 }

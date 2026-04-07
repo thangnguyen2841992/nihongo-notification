@@ -35,7 +35,8 @@ public class NotificationServiceImpl implements INotificationService {
 
         String url = frontendUrl
                 + "/active?userId=" + msg.getToUserId()
-                + "&activeCode=" + msg.getActiveCode();
+                + "&activeCode=" + msg.getActiveCode()
+                + "&email=" + msg.getToUserEmail();
 
         Context context = new Context();
         context.setVariable("name", msg.getToUserFullName());
