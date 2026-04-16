@@ -35,4 +35,4 @@ server:
 
 app:
   frontend:
-    url: http://localhost:8082/api/active-user
+    url: http://localhost:5173

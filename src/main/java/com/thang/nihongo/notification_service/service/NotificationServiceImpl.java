@@ -12,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 @Service
 @Slf4j
 public class NotificationServiceImpl implements INotificationService {
@@ -33,10 +36,10 @@ public class NotificationServiceImpl implements INotificationService {
     public void sendEmailActive(MessageResponseUser msg) throws MessagingException {
         String subject = "Kích hoạt tài khoản của bạn tại Japanese App";
 
-        String url = frontendUrl
-                + "/active?userId=" + msg.getToUserId()
-                + "&activeCode=" + msg.getActiveCode()
-                + "&email=" + msg.getToUserEmail();
+        String url = frontendUrl + "/active?"
+                + "userId=" + msg.getToUserId()
+                + "&activeCode=" + URLEncoder.encode(msg.getActiveCode(), StandardCharsets.UTF_8)
+                + "&email=" + URLEncoder.encode(msg.getToUserEmail(), StandardCharsets.UTF_8);
 
         Context context = new Context();
         context.setVariable("name", msg.getToUserFullName());
