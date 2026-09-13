@@ -4,8 +4,8 @@ spring:
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
-    username: nguyenthang29tbdl@gmail.com
-    password: mwfeispvymtsleew
+    username: nguyenthang28419902@gmail.com
+    password: yclteeqfsqcytyma
     port: 587
     protocol: smtp
     test-connection: false
@@ -18,7 +18,7 @@ spring:
 
 
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: 180.93.115.154:9092
     consumer:
       value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
       auto-offset-reset: earliest

@@ -13,6 +13,6 @@ public class MessageResponseUser {
     private String toUserName;
     private String toUserFullName;
 
-    private long toUserId;
+    private String toUserId;
     private String activeCode;
 }
