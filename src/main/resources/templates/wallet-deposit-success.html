@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><title>Nạp tiền thành công</title></head>
+<body style="font-family:Arial,sans-serif;background:#f4f6fa;padding:24px;color:#172033">
+<div style="max-width:560px;margin:auto;background:white;padding:32px;border-radius:12px">
+  <h1 style="font-size:24px;color:#166534">Nạp tiền thành công</h1>
+  <p>Yêu cầu <strong th:text="${reference}"></strong> đã được xác nhận. Tiền đã được cộng vào ví của bạn.</p>
+  <p>Số tiền nạp: <strong th:text="${amount}"></strong></p>
+  <p>Số dư ngay sau giao dịch: <strong th:text="${balance}"></strong></p>
+  <p><a th:href="${walletUrl}">Xem ví và lịch sử nạp tiền</a></p>
+  <p style="font-size:13px;color:#64748b">Số dư hiện tại có thể thay đổi nếu bạn có giao dịch khác sau thời điểm xác nhận.</p>
+  <p>Cảm ơn bạn đã đồng hành cùng Nihongo.</p>
+</div>
+</body></html>
