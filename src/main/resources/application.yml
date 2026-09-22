@@ -1,6 +1,13 @@
 spring:
   application:
     name: notification-service
+  datasource:
+    url: ${NOTIFICATION_DB_URL:jdbc:mysql://localhost:3306/nihongo_notification}
+    username: ${NOTIFICATION_DB_USERNAME:nihongo}
+    password: ${NOTIFICATION_DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
   mail:
     default-encoding: UTF-8
     host: smtp.gmail.com
@@ -10,15 +17,25 @@ spring:
     protocol: smtp
     test-connection: false
     properties:
-      mail:
+      datasource:
+    url: ${NOTIFICATION_DB_URL:jdbc:mysql://localhost:3306/nihongo_notification}
+    username: ${NOTIFICATION_DB_USERNAME:nihongo}
+    password: ${NOTIFICATION_DB_PASSWORD:}
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mail:
         smtp:
           auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
           starttls:
             enable: true
 
 
   kafka:
-    bootstrap-servers: 180.93.115.154:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:180.93.115.154:9092}
     consumer:
       value-deserializer: org.apache.kafka.common.serialization.ByteArrayDeserializer
       auto-offset-reset: earliest
@@ -36,3 +53,11 @@ server:
 app:
   frontend:
     url: http://localhost:5173
+wallet:
+  mail:
+    enabled: ${WALLET_MAIL_ENABLED:true}
+  events:
+    topic: ${WALLET_EVENTS_TOPIC:wallet.events.v1}
+    partitions: ${WALLET_EVENTS_PARTITIONS:3}
+    replicas: ${WALLET_EVENTS_REPLICAS:1}
+
