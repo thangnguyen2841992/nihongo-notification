@@ -20,18 +20,21 @@ public class WalletSuccessMailer {
         this.sender = sender; this.templates = templates; this.from = from; this.frontend = frontend;
     }
     public void send(WalletEvent event) throws MessagingException {
-        if (!"APPROVED".equals(event.type())) throw new IllegalArgumentException("Only approved deposits have receipts");
+        boolean approved = "APPROVED".equals(event.type());
+        if (!approved && !"REJECTED".equals(event.type())) throw new IllegalArgumentException("Only final deposit results have receipts");
         NumberFormat money = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("vi-VN"));
         Context context = new Context();
         context.setVariable("reference", "NAP" + event.depositId());
         context.setVariable("amount", money.format(event.amount()));
         context.setVariable("balance", money.format(event.balance()));
+        context.setVariable("reviewNote", event.reviewNote() == null || event.reviewNote().isBlank()
+            ? "Vui lòng xem chi tiết trong lịch sử nạp tiền hoặc liên hệ hỗ trợ." : event.reviewNote());
         context.setVariable("walletUrl", frontend.replaceAll("/+$", "") + "/wallet");
         var message = sender.createMimeMessage();
         var helper = new MimeMessageHelper(message, false, StandardCharsets.UTF_8.name());
         helper.setFrom(from); helper.setTo(event.email());
-        helper.setSubject("Nạp tiền thành công – NAP" + event.depositId());
-        helper.setText(templates.process("wallet-deposit-success", context), true);
+        helper.setSubject((approved ? "Nạp tiền thành công – NAP" : "Nạp tiền không thành công – NAP") + event.depositId());
+        helper.setText(templates.process(approved ? "wallet-deposit-success" : "wallet-deposit-failure", context), true);
         message.setHeader("X-Wallet-Event-Id", event.eventId());
         // Synchronous: the inbox must not be marked sent before SMTP reports success.
         sender.send(message);

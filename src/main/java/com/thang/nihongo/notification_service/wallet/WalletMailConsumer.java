@@ -14,7 +14,7 @@ public class WalletMailConsumer {
     @Transactional(rollbackFor = Exception.class)
     public void receive(String payload) throws Exception {
         WalletEvent event = mapper.readValue(payload, WalletEvent.class);
-        if ("APPROVED".equals(event.type())) inbox.enqueueOnce(event.eventId(), event.depositId(), payload);
+        if ("APPROVED".equals(event.type()) || "REJECTED".equals(event.type())) inbox.enqueueOnce(event.eventId(), event.depositId(), payload, java.time.Instant.now());
         // Offset is committed only after the durable inbox transaction returns successfully.
     }
 }

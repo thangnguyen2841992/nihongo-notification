@@ -23,7 +23,7 @@ public class WalletMailDelivery {
         } catch (Exception e) {
             row.setAttempts(row.getAttempts() + 1);
             row.setNextAttemptAt(Instant.now().plusSeconds(Math.min(3600, 5L << Math.min(row.getAttempts(), 10))));
-            log.warn("Wallet receipt {} pending after attempt {}", row.getEventId(), row.getAttempts());
+            log.warn("Wallet receipt {} pending after attempt {}; failureType={}", row.getEventId(), row.getAttempts(), e.getClass().getSimpleName());
         }
         inbox.save(row);
         return true;
