@@ -1,4 +1,6 @@
 spring:
+  config:
+    import: "optional:file:./.local/audit-secrets-notification-service.properties,optional:file:./notification-service/.local/audit-secrets-notification-service.properties"
   application:
     name: notification-service
   datasource:
@@ -20,7 +22,7 @@ spring:
     default-encoding: UTF-8
     host: smtp.gmail.com
     username: nguyenthang28419902@gmail.com
-    password: yclteeqfsqcytyma
+    password: ${MAIL_PASSWORD}
     port: 587
     protocol: smtp
     test-connection: false
