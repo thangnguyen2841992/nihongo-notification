@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -32,7 +31,6 @@ public class NotificationServiceImpl implements INotificationService {
         this.templateEngine = templateEngine;
     }
 
-    @Async
     public void sendEmailActive(MessageResponseUser msg) throws MessagingException {
         String subject = "Kích hoạt tài khoản của bạn tại Japanese App";
 

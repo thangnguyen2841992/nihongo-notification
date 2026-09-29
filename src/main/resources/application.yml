@@ -1,6 +1,6 @@
 spring:
   config:
-    import: "optional:file:./.local/nihongo-notification.properties,optional:file:../.local/nihongo-notification.properties"
+    import: "optional:file:./.local/audit-secrets-notification-service.properties,optional:file:./notification-service/.local/audit-secrets-notification-service.properties"
   application:
     name: notification-service
   datasource:
@@ -10,7 +10,7 @@ spring:
         permitMysqlScheme: true
     url: ${NOTIFICATION_DB_URL:jdbc:mariadb://onehost-amdcloudhn022602.000nethost.com:3306/tsezwyvdhosting_nihongo?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
     username: ${NOTIFICATION_DB_USERNAME:tsezwyvdhosting_nihongo_app}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    password: ${NOTIFICATION_DB_PASSWORD:thuThuy@1}
   jpa:
     properties:
       hibernate:
@@ -22,7 +22,7 @@ spring:
     default-encoding: UTF-8
     host: smtp.gmail.com
     username: nguyenthang28419902@gmail.com
-    password: ${SPRING_MAIL_PASSWORD}
+    password: ${MAIL_PASSWORD}
     port: 587
     protocol: smtp
     test-connection: false
@@ -49,13 +49,13 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
     service-url:
-      defaultZone: ${EUREKA_URL:http://localhost:8761/eureka}
+      defaultZone: http://localhost:8761/eureka
 server:
   port: 8083
 
 app:
   frontend:
-    url: ${FRONTEND_URL:http://localhost:5173}
+    url: http://localhost:5173
 wallet:
   mail:
     enabled: ${WALLET_MAIL_ENABLED:true}
