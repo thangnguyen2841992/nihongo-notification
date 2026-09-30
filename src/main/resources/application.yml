@@ -1,6 +1,6 @@
 spring:
   config:
-    import: "optional:file:./.local/audit-secrets-notification-service.properties,optional:file:./notification-service/.local/audit-secrets-notification-service.properties"
+    import: "optional:file:./.local/shared.properties,optional:file:../.local/shared.properties"
   application:
     name: notification-service
   datasource:
@@ -10,7 +10,7 @@ spring:
         permitMysqlScheme: true
     url: ${NOTIFICATION_DB_URL:jdbc:mariadb://onehost-amdcloudhn022602.000nethost.com:3306/tsezwyvdhosting_nihongo?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true}
     username: ${NOTIFICATION_DB_USERNAME:tsezwyvdhosting_nihongo_app}
-    password: ${NOTIFICATION_DB_PASSWORD:thuThuy@1}
+    password: ${NOTIFICATION_DB_PASSWORD}
   jpa:
     properties:
       hibernate:
